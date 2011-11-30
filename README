@@ -4,5 +4,25 @@ Based on the paper by Paul Siddons:
 
 Siddons et al. J. Phys. B: At. Mol. Opt. Phys. 41, 155004 (2008).
 
-Also, heavily inspired by Mathematica code by the same author: http://massey.dur.ac.uk/resources/resources.html http://massey.dur.ac.uk/resources/psiddons/absdisD2.nb
+Also, heavily inspired by Mathematica code by the same author: 
+http://massey.dur.ac.uk/resources/resources.html 
+http://massey.dur.ac.uk/resources/psiddons/absdisD2.nb
 
+*********************************
+Requirements (version guidelines)
+*********************************
+
+python (2.7)
+Scipy (0.9.0)
+matplotlib 
+numpy
+
+I recommend using the Enthought Python Distribution (either free or academic version). This provides the above requirements in one easy-to-install package.
+
+********************
+Installation & Usage
+********************
+
+The single-script python code RubidiumD2.py will generate absorption data for a vapor cell at a given temperature (in Kelvin) with length Lc (in meters). The detuning range generated can be set and defaults to -4 GHz through +6 GHz. The script generates a plot using pylab (matplotlib) and saves raw data to an ascii file.
+
+Functions from this script can be imported and used in other python code. My intention is to continue to build on these features and maintain a useful python repository for numerical modeling in rubidium vapor systems.
