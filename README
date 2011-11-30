@@ -1,0 +1,8 @@
+A suite of python code that is useful for calculating absorption spectra for the Rubidium D2-line.
+
+Based on the paper by Paul Siddons:
+
+Siddons et al. J. Phys. B: At. Mol. Opt. Phys. 41, 155004 (2008).
+
+Also, heavily inspired by Mathematica code by the same author: http://massey.dur.ac.uk/resources/resources.html http://massey.dur.ac.uk/resources/psiddons/absdisD2.nb
+
