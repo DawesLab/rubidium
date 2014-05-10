@@ -25,8 +25,8 @@ import os
 from scipy.constants import hbar, e, epsilon_0, c, m_u, k, m_e, alpha
 from scipy import sqrt, pi, exp, zeros, array, real, imag
 from scipy.special import erf
-from pylab import plot, show, linspace, title, xlabel, ylabel
-from numpy import savetxt
+from pylab import plot, show, linspace, title, xlabel, ylabel, subplot
+from numpy import savetxt, nan_to_num
 
 a_0 = hbar/(m_e*c*alpha) # bohr radius
 
@@ -69,10 +69,12 @@ d21 = sqrt(3)*sqrt(3*epsilon_0*hbar*Gamma2*lProbe**3/(8*pi**2)) # reduced matrix
 #####################################
 
 def dispersion(a,y):
-    return 1j/2.0*sqrt(pi)*(exp(1/4.0*(a-2j*y)**2)*(1-erf(a/2-1j*y))-exp(1/4.0*(a+2*1j*y)**2)*(1-erf(a/2.0+1j*y)))
+    disp = nan_to_num(1j/2.0*sqrt(pi)*(exp(1/4.0*(a-2j*y)**2)*(1-erf(a/2-1j*y))-exp(1/4.0*(a+2*1j*y)**2)*(1-erf(a/2.0+1j*y))))
+    return disp
 
 def voigt(a,y):
-    return sqrt(pi)/2.0*(exp(1/4.0*(a-2j*y)**2)*((1-erf(a/2.0-1j*y))+exp(2*1j*a*y)*(1-erf(a/2.0+1j*y))))
+    voigt = nan_to_num(sqrt(pi)/2.0*(exp(1/4.0*(a-2j*y)**2)*((1-erf(a/2.0-1j*y))+exp(2*1j*a*y)*(1-erf(a/2.0+1j*y)))))
+    return voigt
 
 def lo87(T):
     return Gamma2/(kProbe*u87(T))
@@ -156,14 +158,20 @@ def AbsorptionProfile(delta,T,Lc):
 
 
 def main():
-    T = 285 # Temperature in Kelvin
+    T = 273.15 + 45 # Temperature in Kelvin
     Lc = 0.075 # Length of cell in meters
     delta = linspace(-4,6,200)
     absdata = AbsorptionProfile(delta*1e9,T,Lc)
+    ndata = Totaln(delta*1e9, T)
+    subplot(2,1,1)
     plot(delta,absdata)
     title("Rubidium D2 Spectrum at T= " + str(T) + " K")
-    xlabel(r"Detuning \Delta (GHz)")
+    xlabel(r"Detuning $\Delta$ (GHz)")
     ylabel("Transmission (Arb. Units)")
+    subplot(2,1,2)
+    plot(delta,ndata)
+    xlabel(r"Detuning $\Delta$ (GHz)")
+    ylabel("Index n")
     show()
     savetxt("D2AbsorptionData.dat",absdata)
 
