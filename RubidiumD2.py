@@ -158,7 +158,7 @@ def AbsorptionProfile(delta,T,Lc):
 
 
 def main():
-    T = 273.15 + 45 # Temperature in Kelvin
+    T = 273.15 + 35 # Temperature in Kelvin
     Lc = 0.075 # Length of cell in meters
     delta = linspace(-4,6,200)
     absdata = AbsorptionProfile(delta*1e9,T,Lc)
