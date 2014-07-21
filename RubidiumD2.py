@@ -26,7 +26,7 @@ from scipy.constants import hbar, e, epsilon_0, c, m_u, k, m_e, alpha
 from scipy import sqrt, pi, exp, zeros, array, real, imag
 from scipy.special import erf
 from pylab import plot, show, linspace, title, xlabel, ylabel, subplot
-from numpy import savetxt, nan_to_num
+from numpy import savetxt, nan_to_num, roll
 
 a_0 = hbar/(m_e*c*alpha) # bohr radius
 
@@ -58,7 +58,7 @@ lProbe = 780.241e-9
 
 kProbe = 2*pi/lProbe
 
-omegaProbe = kProbe/c
+omegaProbe = kProbe*c
 
 Gamma2 = 2*pi*6.065e6 # Excited state decay rate
 
@@ -117,18 +117,18 @@ detF85 = [[ 0.0, 0.0, 0.0, 0.0, 0.0],
           [ 0.0, 0.0, 1371.290e6, 1307.870e6, 1186.910e6]]
        
 def K87(T,Fg,Fe):
-    return F87[Fg][Fe]*1/8.0*1/(hbar*epsilon_0) * d21**2 * N(T,"87")/(kProbe * u87(T))
+    return F87[Fg][Fe]*1/8.0*1/(hbar*epsilon_0) * d21**2 * N(T, "87")/(kProbe * u87(T))
 
 def K85(T,Fg,Fe):
-    return F85[Fg][Fe]*1/12.0*1/(hbar*epsilon_0) * d21**2 * N(T,"85")/(kProbe * u85(T))
+    return F85[Fg][Fe]*1/12.0*1/(hbar*epsilon_0) * d21**2 * N(T, "85")/(kProbe * u85(T))
 
 def chiRe87(delta,T,Fg,Fe):
     """The real part of the susceptibility for 87-Rb"""
-    return K87(T,Fg,Fe)*real(D87(2*pi*(delta+detF87[Fg][Fe])/(kProbe*u87(T)),T))
+    return K87(T, Fg,Fe)*real(D87(2*pi*(delta+detF87[Fg][Fe])/(kProbe*u87(T)), T))
 
 def chiIm87(delta,T,Fg,Fe):
     """The imaginary part of the susceptibility for 87-Rb"""
-    return K87(T,Fg,Fe)*real(V87(2*pi*(delta+detF87[Fg][Fe])/(kProbe*u87(T)),T))
+    return K87(T, Fg, Fe)*real(V87(2*pi*(delta+detF87[Fg][Fe])/(kProbe*u87(T)), T))
         
 def chiRe85(delta,T,Fg,Fe):
     """The real part of the susceptibility for 85-Rb"""
@@ -151,31 +151,52 @@ def Totaln(delta,T):
     
 def TotalAlpha(delta,T):
     return kProbe*TotalChiIm(delta,T)
-    
-def AbsorptionProfile(delta,T,Lc):
-    """Absorption profile as a function of detuning, temperature, and cell length"""
+
+def Transmission(delta,T,Lc):
+    """Transmission as a function of detuning, temperature, and cell length"""
     return exp(-TotalAlpha(delta,T)*Lc)
 
+def groupVelocity(delta, T, Lc):
+    ndata = Totaln(delta*1e9, T)
+    dndw = (roll(ndata,-1) - ndata)/((delta[1] - delta[0])*1e9)  # numerical derivative dn/dw
+    ng = ndata[:-1] + (delta[:-1]*1e9 + omegaProbe)*dndw[:-1]  # group index
+    vg = 3e8/ng
+    return vg
 
+
+
+
+if __name__ == '__main__':
+    T = 273.15 + 130  # Temperature in Kelvin
+    Lc = 0.075  # Length of cell in meters
+    delta = linspace(-4, 6, 200)  # detuning in GHz
+    transdata = Transmission(delta*1e9, T, Lc)
+
+<<<<<<< HEAD
 def main():
     T = 273.15 + 35 # Temperature in Kelvin
     Lc = 0.075 # Length of cell in meters
     delta = linspace(-4,6,200)
     absdata = AbsorptionProfile(delta*1e9,T,Lc)
+=======
+>>>>>>> 4bc51291a84d81e9549fe937f66b85abd948ee50
     ndata = Totaln(delta*1e9, T)
-    subplot(2,1,1)
-    plot(delta,absdata)
+
+    vg = groupVelocity(delta,T,Lc)
+    transit = Lc/vg
+    timeshift = transit - Lc/c
+
+    subplot(3, 1, 1)
+    plot(delta, transdata)
     title("Rubidium D2 Spectrum at T= " + str(T) + " K")
-    xlabel(r"Detuning $\Delta$ (GHz)")
     ylabel("Transmission (Arb. Units)")
-    subplot(2,1,2)
-    plot(delta,ndata)
-    xlabel(r"Detuning $\Delta$ (GHz)")
+    subplot(3, 1, 2)
+    plot(delta, ndata)
     ylabel("Index n")
+    subplot(3, 1, 3)
+    plot(delta[:-1], timeshift*1e9)
+    plot([delta[0], delta[-2]], [0, 0], color='#888888', linestyle='--', linewidth=1)
+    xlabel(r"Detuning $\Delta$ (GHz)")
+    ylabel(r"T (ns)")
     show()
-    savetxt("D2AbsorptionData.dat",absdata)
-
-
-if __name__ == '__main__':
-	main()
-
+    savetxt("D2AbsorptionData.dat", transdata)
