@@ -172,14 +172,11 @@ if __name__ == '__main__':
     delta = linspace(-4, 6, 200)  # detuning in GHz
     transdata = Transmission(delta*1e9, T, Lc)
 
-<<<<<<< HEAD
 def main():
     T = 273.15 + 35 # Temperature in Kelvin
     Lc = 0.075 # Length of cell in meters
     delta = linspace(-4,6,200)
     absdata = AbsorptionProfile(delta*1e9,T,Lc)
-=======
->>>>>>> 4bc51291a84d81e9549fe937f66b85abd948ee50
     ndata = Totaln(delta*1e9, T)
 
     vg = groupVelocity(delta,T,Lc)
