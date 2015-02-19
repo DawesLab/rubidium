@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Rubidium D2 Spectrum : A numerical model of the Rubidium D2 spectrum implemented in Python">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Rubidium D2 Spectrum</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/DawesLab/rubidium-d2">View on GitHub</a>
+
+          <h1 id="project_title">Rubidium D2 Spectrum</h1>
+          <h2 id="project_tagline">A numerical model of the Rubidium D2 spectrum implemented in Python</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/DawesLab/rubidium-d2/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/DawesLab/rubidium-d2/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>Python code for calculating absorption spectra for the full Rubidium D2-line.</p>
+
+<p>Based on the paper by Paul Siddons:
+<em>Siddons et al. J. Phys. B: At. Mol. Opt. Phys. 41, 155004 (2008).</em></p>
+
+<p>Also, heavily inspired by Mathematica code by the same author: 
+<a href="http://massey.dur.ac.uk/resources/resources.html">http://massey.dur.ac.uk/resources/resources.html</a> 
+<a href="http://massey.dur.ac.uk/resources/psiddons/absdisD2.nb">http://massey.dur.ac.uk/resources/psiddons/absdisD2.nb</a></p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<p>Functions provide calculation of the following:</p>
+
+<ul>
+<li>Transmission as a function of temperature (T) and detuning (∆).</li>
+<li>Index of refraction <em>n(∆,T)</em>
+</li>
+<li>Group velocity <em>V<sub>g</sub>(∆,T)</em>
+</li>
+<li>Other intermediate parameters: vapor pressure, absorption, etc.</li>
+</ul>
+
+<h2>
+<a id="requirements-minimum-tested" class="anchor" href="#requirements-minimum-tested" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements (minimum tested)</h2>
+
+<ul>
+<li>python (2.7)</li>
+<li>Scipy (0.9.0)</li>
+<li>matplotlib </li>
+<li>numpy</li>
+</ul>
+
+<p>I recommend using either Anaconda or the Enthought Python Distribution (either free or academic version). This provides the above requirements in one easy-to-install package.</p>
+
+<h2>
+<a id="installation--usage" class="anchor" href="#installation--usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation &amp; Usage</h2>
+
+<p>The single-script python code RubidiumD2.py will generate absorption data for a vapor cell at a given temperature (in Kelvin) with length Lc (in meters). The detuning range generated can be set and defaults to -4 GHz through +6 GHz. The script generates a plot using pylab (matplotlib) and saves raw data to an ascii file.</p>
+
+<p>An IPython notebook is also included that provides an example workflow.</p>
+
+<h2>
+<a id="extending-the-code" class="anchor" href="#extending-the-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extending the code</h2>
+
+<p>Functions from this script can be imported and used in other python code. My intention is to continue to build on these features and maintain a useful python repository for numerical modeling in rubidium vapor systems.</p>
+
+<p>Please contribute if you have more ideas and time. If this is useful, leave a comment and let me know what more you would like it to do.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Rubidium D2 Spectrum maintained by <a href="https://github.com/DawesLab">DawesLab</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
