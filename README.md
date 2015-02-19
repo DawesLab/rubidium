@@ -4,9 +4,8 @@ This script provides python code that is useful for calculating absorption spect
 Based on the paper by Paul Siddons:
 *Siddons et al. J. Phys. B: At. Mol. Opt. Phys. 41, 155004 (2008).*
 
-Also, heavily inspired by Mathematica code by the same author: 
-http://massey.dur.ac.uk/resources/resources.html 
-http://massey.dur.ac.uk/resources/psiddons/absdisD2.nb
+Also, heavily inspired by [Mathematica code](http://massey.dur.ac.uk/resources/psiddons/absdisD2.nb) by the [same author](http://massey.dur.ac.uk/resources/resources.html).
+
 
 ##Features
 Functions provide calculation of the following:
@@ -22,7 +21,7 @@ Functions provide calculation of the following:
  - matplotlib 
  - numpy
 
-I recommend using either [Anaconda[(https://store.continuum.io/cshop/anaconda/) or [Enthought Canopy](https://store.enthought.com). These packages provide the above requirements in one easy-to-maintain format.
+I recommend using either [Anaconda](https://store.continuum.io/cshop/anaconda/) or [Enthought Canopy](https://store.enthought.com). These packages provide the above requirements in one easy-to-maintain format.
 
 ##Installation & Usage
 
