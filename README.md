@@ -27,7 +27,7 @@ I recommend using either [Anaconda](https://store.continuum.io/cshop/anaconda/) 
 
 The single-script python code RubidiumD2.py will generate absorption data for a vapor cell at a given temperature (in Kelvin) with length Lc (in meters). The detuning range generated can be set and defaults to -4 GHz through +6 GHz. The script generates a plot using pylab (matplotlib) and saves raw data to an ascii file.
 
-An IPython notebook is also included that provides an example workflow.
+An [IPython notebook](http://nbviewer.ipython.org/github/DawesLab/rubidium-d2/blob/master/Rubidium%20Vapor.ipynb) is also included that provides an example workflow.
 
 ##Extending the code
 
