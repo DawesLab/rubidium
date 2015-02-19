@@ -26,7 +26,9 @@ from scipy.constants import hbar, e, epsilon_0, c, m_u, k, m_e, alpha
 from scipy import sqrt, pi, exp, zeros, array, real, imag
 from scipy.special import erf
 from pylab import plot, show, linspace, title, xlabel, ylabel, subplot
-from numpy import savetxt, nan_to_num, roll, log10
+from numpy import savetxt, nan_to_num, roll, log10, seterr
+
+seterr(invalid='ignore') # ignoring invalid warnings as the erf is touchy near ∆=0. No interesting physics there so we can safely ignore it.
 
 a_0 = hbar/(m_e*c*alpha) # bohr radius
 
@@ -75,7 +77,11 @@ def dispersion(a,y):
 
 def voigt(a,y):
     """ Calculate Voigt profile for parameter a and frequency y"""
-    voigt = nan_to_num(sqrt(pi)/2.0*(exp(1/4.0*(a-2j*y)**2)*((1-erf(a/2.0-1j*y))+exp(2*1j*a*y)*(1-erf(a/2.0+1j*y)))))
+    try:
+        voigt = nan_to_num(sqrt(pi)/2.0*(exp(1/4.0*(a-2j*y)**2)*((1-erf(a/2.0-1j*y))+exp(2*1j*a*y)*(1-erf(a/2.0+1j*y)))))
+    except:
+        pass
+
     return voigt
 
 def lo87(T):
