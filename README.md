@@ -22,7 +22,7 @@ Functions provide calculation of the following:
  - matplotlib 
  - numpy
 
-I recommend using either Anaconda or the Enthought Python Distribution (either free or academic version). This provides the above requirements in one easy-to-install package.
+I recommend using either [Anaconda[(https://store.continuum.io/cshop/anaconda/) or [Enthought Canopy](https://store.enthought.com). These packages provide the above requirements in one easy-to-maintain format.
 
 ##Installation & Usage
 
