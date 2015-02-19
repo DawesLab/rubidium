@@ -1,4 +1,5 @@
-A suite of python code that is useful for calculating absorption spectra for the Rubidium D2-line.
+#Rubidium D2 Spectrum
+This script provides python code that is useful for calculating absorption spectra for the Rubidium D2-line.
 
 Based on the paper by Paul Siddons:
 *Siddons et al. J. Phys. B: At. Mol. Opt. Phys. 41, 155004 (2008).*
@@ -7,7 +8,14 @@ Also, heavily inspired by Mathematica code by the same author:
 http://massey.dur.ac.uk/resources/resources.html 
 http://massey.dur.ac.uk/resources/psiddons/absdisD2.nb
 
-##Requirements (version guidelines)
+##Features
+Functions provide calculation of the following:
+ - Transmission as a function of temperature (T) and detuning (∆).
+ - Index of refraction *n(∆,T)*
+ - Group velocity *V<sub>g</sub>(∆,T)*
+ - Other intermediate parameters: vapor pressure, absorption, etc.
+
+##Requirements (minimum tested)
 
  - python (2.7)
  - Scipy (0.9.0)
@@ -19,6 +27,8 @@ I recommend using either Anaconda or the Enthought Python Distribution (either f
 ##Installation & Usage
 
 The single-script python code RubidiumD2.py will generate absorption data for a vapor cell at a given temperature (in Kelvin) with length Lc (in meters). The detuning range generated can be set and defaults to -4 GHz through +6 GHz. The script generates a plot using pylab (matplotlib) and saves raw data to an ascii file.
+
+An IPython notebook is also included that provides an example workflow.
 
 ##Extending the code
 
