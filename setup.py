@@ -8,4 +8,7 @@ setup(name='rubidium',
       author_email='dawes@pacificu.edu',
       license='GPLv3',
       packages=['rubidium'],
+      install_requires=[
+          'numpy','scipy','matplotlib'
+      ],
       zip_safe=False)
