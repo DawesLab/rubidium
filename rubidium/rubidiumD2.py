@@ -26,7 +26,9 @@ from scipy.constants import hbar, e, epsilon_0, c, m_u, k, m_e, alpha
 from scipy import sqrt, pi, exp, zeros, array, real, imag
 from scipy.special import erf
 from pylab import plot, show, linspace, title, xlabel, ylabel, subplot
-from numpy import savetxt, nan_to_num, roll
+from numpy import savetxt, nan_to_num, roll, log10, seterr
+
+seterr(invalid='ignore') # ignoring invalid warnings as the erf is touchy near ∆=0. No interesting physics there so we can safely ignore it.
 
 a_0 = hbar/(m_e*c*alpha) # bohr radius
 
@@ -43,9 +45,9 @@ def P(T):
     """Vapor pressure in a thermal cell"""
     # return 7e-8 # <--- USE THIS for finding background P
     if (T<312.46):
-        return 10**(2.88081+4.857-4215.0/T)
+        return 10**( -94.04826 - 1961.258/T - 0.03771687*T + 42.57526*log10(T) )
     else:
-        return 10**(2.88081+4.312-4040.0/T)
+        return 10**( 15.88253 - 4529.635/T + 0.00058663*T - 2.99138*log10(T) ) 
 
 
 abundance = {"85":0.7217,"87":0.2783}
@@ -69,29 +71,41 @@ d21 = sqrt(3)*sqrt(3*epsilon_0*hbar*Gamma2*lProbe**3/(8*pi**2)) # reduced matrix
 #####################################
 
 def dispersion(a,y):
+    """ Calculate dispersion profile for parameter a and frequency y"""
     disp = nan_to_num(1j/2.0*sqrt(pi)*(exp(1/4.0*(a-2j*y)**2)*(1-erf(a/2-1j*y))-exp(1/4.0*(a+2*1j*y)**2)*(1-erf(a/2.0+1j*y))))
     return disp
 
 def voigt(a,y):
-    voigt = nan_to_num(sqrt(pi)/2.0*(exp(1/4.0*(a-2j*y)**2)*((1-erf(a/2.0-1j*y))+exp(2*1j*a*y)*(1-erf(a/2.0+1j*y)))))
+    """ Calculate Voigt profile for parameter a and frequency y"""
+    try:
+        voigt = nan_to_num(sqrt(pi)/2.0*(exp(1/4.0*(a-2j*y)**2)*((1-erf(a/2.0-1j*y))+exp(2*1j*a*y)*(1-erf(a/2.0+1j*y)))))
+    except:
+        pass
+
     return voigt
 
 def lo87(T):
+    """This is used as the parameter a in the voigt and dispersion calculations """
     return Gamma2/(kProbe*u87(T))
 
 def D87(y, T):
+    """ Caculate the dispersion for Rb-87 at frequency y and temperature T """
     return dispersion(lo87(T),y)
 
 def V87(y, T):
+    """ Calculate the voigt profile for Rb-87 at frequency y and temperature T """
     return voigt(lo87(T),y)
 
 def lo85(T):
+    """ This is used as the parameter a in the voigt and dispersion calculations """
     return Gamma2/(kProbe*u85(T))
 
 def D85(y, T):
+    """ Caculate the dispersion for Rb-85 at frequency y and temperature T """
     return dispersion(lo85(T),y)
 
 def V85(y, T):
+    """ Calculate the voigt profile for Rb-85 at frequency y and temperature T """
     return voigt(lo85(T),y)
 
 # Transition strength factors C_F^2, call as F87[1][2] for the F=1 to F'=2 strength
@@ -172,6 +186,14 @@ if __name__ == '__main__':
     delta = linspace(-4, 6, 200)  # detuning in GHz
     transdata = Transmission(delta*1e9, T, Lc)
 
+<<<<<<< HEAD:RubidiumD2.py
+=======
+def main():
+    T = 273.15 + 35 # Temperature in Kelvin
+    Lc = 0.075 # Length of cell in meters
+    delta = linspace(-4,6,200)
+    absdata = AbsorptionProfile(delta*1e9,T,Lc)
+>>>>>>> 77c7f34ae252c3a288a250014f8305b87ba9f1af:rubidium/rubidiumD2.py
     ndata = Totaln(delta*1e9, T)
 
     vg = groupVelocity(delta,T,Lc)
