@@ -47,7 +47,7 @@ def P(T):
     if (T<312.46):
         return 10**( -94.04826 - 1961.258/T - 0.03771687*T + 42.57526*log10(T) )
     else:
-        return 10**( 15.88253 - 4529.635/T + 0.00058663*T - 2.99138*log10(T) ) 
+        return 10**( 15.88253 - 4529.635/T + 0.00058663*T - 2.99138*log10(T) )
 
 
 abundance = {"85":0.7217,"87":0.2783}
@@ -186,14 +186,11 @@ if __name__ == '__main__':
     delta = linspace(-4, 6, 200)  # detuning in GHz
     transdata = Transmission(delta*1e9, T, Lc)
 
-<<<<<<< HEAD:RubidiumD2.py
-=======
 def main():
     T = 273.15 + 35 # Temperature in Kelvin
     Lc = 0.075 # Length of cell in meters
     delta = linspace(-4,6,200)
     absdata = AbsorptionProfile(delta*1e9,T,Lc)
->>>>>>> 77c7f34ae252c3a288a250014f8305b87ba9f1af:rubidium/rubidiumD2.py
     ndata = Totaln(delta*1e9, T)
 
     vg = groupVelocity(delta,T,Lc)
