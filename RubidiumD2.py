@@ -4,7 +4,7 @@
 RubidiumD2.py
 
 Software suite for calculating Rubidium D2 absorption spectra.
-Based on the paper by 
+Based on the paper by
 Siddons et al. J. Phys. B: At. Mol. Opt. Phys. 41, 155004 (2008).
 
 Also, heavily inspired by Mathematica code by the same author:
@@ -37,8 +37,8 @@ def u87(T):
 def u85(T):
     """Mean thermal velocity for 85-Rb"""
     return sqrt(2*k*T/(84.911789732*m_u))
-    
-    
+
+
 def P(T):
     """Vapor pressure in a thermal cell"""
     # return 7e-8 # <--- USE THIS for finding background P
@@ -47,13 +47,13 @@ def P(T):
     else:
         return 10**(2.88081+4.312-4040.0/T)
 
-        
+
 abundance = {"85":0.7217,"87":0.2783}
 
 def N(T,isotope):
     """Atomic number density at T for given isotope"""
     return abundance[isotope]*P(T)*133.323/(k*T)
-    
+
 lProbe = 780.241e-9
 
 kProbe = 2*pi/lProbe
@@ -78,10 +78,10 @@ def voigt(a,y):
 
 def lo87(T):
     return Gamma2/(kProbe*u87(T))
-    
+
 def D87(y, T):
     return dispersion(lo87(T),y)
-    
+
 def V87(y, T):
     return voigt(lo87(T),y)
 
@@ -99,23 +99,23 @@ def V85(y, T):
 F87 = [[ 0.0, 0.0, 0.0, 0.0],
        [ 1/9.0, 5/18.0, 5/18.0, 0.0],
        [ 0.0,  1/18.0, 5/18.0, 7/9.0]]
-       
+
 F85 = [[ 0.0, 0.0, 0.0, 0.0, 0.0],
        [ 0.0, 0.0, 0.0, 0.0, 0.0],
        [ 0.0, 1/3.0, 35/81.0, 28/81.0, 0.0],
        [ 0.0, 0.0,  10/81.0, 35/81.0, 1.0]]
-       
+
 # Detuning factors, call as det87[1][2] for the F=1 to F'=2 hyperfine transition
 
 detF87 = [[ 0.0, 0.0, 0.0, 0.0],
           [ -4027.403e6, -4099.625e6, -4256.570e6, 0.0],
           [ 0.0,  2735.050e6, 2578.110e6, 2311.260e6]]
-       
+
 detF85 = [[ 0.0, 0.0, 0.0, 0.0, 0.0],
           [ 0.0, 0.0, 0.0, 0.0, 0.0],
           [ 0.0, -1635.454e6, -1664.714e6, -1728.134e6, 0.0],
           [ 0.0, 0.0, 1371.290e6, 1307.870e6, 1186.910e6]]
-       
+
 def K87(T,Fg,Fe):
     return F87[Fg][Fe]*1/8.0*1/(hbar*epsilon_0) * d21**2 * N(T, "87")/(kProbe * u87(T))
 
@@ -129,7 +129,7 @@ def chiRe87(delta,T,Fg,Fe):
 def chiIm87(delta,T,Fg,Fe):
     """The imaginary part of the susceptibility for 87-Rb"""
     return K87(T, Fg, Fe)*real(V87(2*pi*(delta+detF87[Fg][Fe])/(kProbe*u87(T)), T))
-        
+
 def chiRe85(delta,T,Fg,Fe):
     """The real part of the susceptibility for 85-Rb"""
     return K85(T,Fg,Fe)*real(D85(2*pi*(delta+detF85[Fg][Fe])/(kProbe*u85(T)),T))
@@ -141,14 +141,14 @@ def chiIm85(delta,T,Fg,Fe):
 def TotalChiRe(delta,T):
     """The total real part of the susceptibility is the sum of each transition"""
     return chiRe87(delta,T,1,0) + chiRe87(delta,T,1,1) + chiRe87(delta,T,1,2) + chiRe87(delta,T,2,1) + chiRe87(delta,T,2,2) + chiRe87(delta,T,2,3) + chiRe85(delta,T,2,1) + chiRe85(delta,T,2,2) + chiRe85(delta,T,2,3) + chiRe85(delta,T,3,2) + chiRe85(delta,T,3,3) + chiRe85(delta,T,3,4)
-    
+
 def TotalChiIm(delta,T):
     """The total imaginary part of the susceptibility is the sum of each transition"""
     return chiIm87(delta,T,1,0) + chiIm87(delta,T,1,1) + chiIm87(delta,T,1,2) + chiIm87(delta,T,2,1) + chiIm87(delta,T,2,2) + chiIm87(delta,T,2,3) + chiIm85(delta,T,2,1) + chiIm85(delta,T,2,2) + chiIm85(delta,T,2,3) + chiIm85(delta,T,3,2) + chiIm85(delta,T,3,3) + chiIm85(delta,T,3,4)
-    
+
 def Totaln(delta,T):
     return 1+1/2.0*TotalChiRe(delta,T)
-    
+
 def TotalAlpha(delta,T):
     return kProbe*TotalChiIm(delta,T)
 
@@ -167,19 +167,11 @@ def groupVelocity(delta, T, Lc):
 
 
 if __name__ == '__main__':
-    T = 273.15 + 130  # Temperature in Kelvin
+    T = 273.15 + 47  # Temperature in Kelvin
     Lc = 0.075  # Length of cell in meters
     delta = linspace(-4, 6, 200)  # detuning in GHz
     transdata = Transmission(delta*1e9, T, Lc)
 
-<<<<<<< HEAD
-def main():
-    T = 273.15 + 35 # Temperature in Kelvin
-    Lc = 0.075 # Length of cell in meters
-    delta = linspace(-4,6,200)
-    absdata = AbsorptionProfile(delta*1e9,T,Lc)
-=======
->>>>>>> 4bc51291a84d81e9549fe937f66b85abd948ee50
     ndata = Totaln(delta*1e9, T)
 
     vg = groupVelocity(delta,T,Lc)
