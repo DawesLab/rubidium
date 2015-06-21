@@ -4,10 +4,18 @@
 RubidiumD2.py
 
 Software suite for calculating Rubidium D2 absorption spectra.
-Based on the paper by
+
+Example usage
+    T = 273.15 + 35 # Temperature in Kelvin
+    Lc = 0.075 # Length of cell in meters
+    delta = linspace(-4,6,200)  # set up detuning values
+    absdata = AbsorptionProfile(delta*1e9,T,Lc)  # calculate absorption
+    plot(delta, absdata)  # plot absorption data 
+
+This code is based on the paper by
 Siddons et al. J. Phys. B: At. Mol. Opt. Phys. 41, 155004 (2008).
 
-Also, heavily inspired by Mathematica code by the same author:
+And heavily inspired by Mathematica code by the same author:
 http://massey.dur.ac.uk/resources/resources.html
 http://massey.dur.ac.uk/resources/psiddons/absdisD2.nb
 
@@ -33,16 +41,19 @@ seterr(invalid='ignore') # ignoring invalid warnings as the erf is touchy near â
 a_0 = hbar/(m_e*c*alpha) # bohr radius
 
 def u87(T):
-    """Mean thermal velocity for 87-Rb"""
+    """Mean thermal velocity for 87-Rb
+    expects T in Kelvin"""
     return sqrt(2*k*T/(86.909180520*m_u))
 
 def u85(T):
-    """Mean thermal velocity for 85-Rb"""
+    """Mean thermal velocity for 85-Rb
+    expects T in Kelvin"""
     return sqrt(2*k*T/(84.911789732*m_u))
 
 
 def P(T):
-    """Vapor pressure in a thermal cell"""
+    """Vapor pressure in a thermal cell
+    expects T in Kelvin"""
     # return 7e-8 # <--- USE THIS for finding background P
     if (T<312.46):
         return 10**( -94.04826 - 1961.258/T - 0.03771687*T + 42.57526*log10(T) )
@@ -53,7 +64,9 @@ def P(T):
 abundance = {"85":0.7217,"87":0.2783}
 
 def N(T,isotope):
-    """Atomic number density at T for given isotope"""
+    """Atomic number density at T for given isotope
+    expects T in Kelvin, and 
+    isotope is either '85' or '87' """
     return abundance[isotope]*P(T)*133.323/(k*T)
 
 lProbe = 780.241e-9
