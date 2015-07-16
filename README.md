@@ -3,8 +3,9 @@ This script provides python code that is useful for calculating absorption spect
 
 Based on the paper by Paul Siddons:
 *Siddons et al. J. Phys. B: At. Mol. Opt. Phys. 41, 155004 (2008).*
+preprint available: [arXiv:0805.1139](http://arxiv.org/abs/0805.1139).
 
-Also, heavily inspired by [Mathematica code](http://massey.dur.ac.uk/resources/psiddons/absdisD2.nb) by the [same author](http://massey.dur.ac.uk/resources/resources.html).
+Also, heavily inspired by Mathematica code] by the [same author](http://massey.dur.ac.uk/resources/resources.html).
 
 
 ##Features
