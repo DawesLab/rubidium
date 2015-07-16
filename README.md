@@ -5,7 +5,7 @@ Based on the paper by Paul Siddons:
 *Siddons et al. J. Phys. B: At. Mol. Opt. Phys. 41, 155004 (2008).*
 preprint available: [arXiv:0805.1139](http://arxiv.org/abs/0805.1139).
 
-Also, heavily inspired by Mathematica code] by the [same author](http://massey.dur.ac.uk/resources/resources.html).
+This code is also heavily inspired by Mathematica code by the same author. Unfortunately, the original code does not appear to be available any more.
 
 
 ##Features
