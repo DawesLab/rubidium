@@ -1,1 +1,2 @@
-from .rubidiumD2 import *
+from rubidium import D1
+from rubidium import D2
