@@ -1,5 +1,5 @@
-#Rubidium D2 Spectrum
-This script provides python code that is useful for calculating absorption spectra for the Rubidium D2-line.
+#Rubidium Spectrum Model
+This script provides python code that is useful for calculating absorption spectra for the Rubidium D1 and D2 lines.
 
 Based on the paper by Paul Siddons:
 *Siddons et al. J. Phys. B: At. Mol. Opt. Phys. 41, 155004 (2008).*
@@ -25,7 +25,7 @@ I recommend using either [Anaconda](https://store.continuum.io/cshop/anaconda/) 
 
 ##Installation & Usage
 
-The single-script python code RubidiumD2.py will generate absorption data for a vapor cell at a given temperature (in Kelvin) with length Lc (in meters). The detuning range generated can be set and defaults to -4 GHz through +6 GHz. The script generates a plot using pylab (matplotlib) and saves raw data to an ascii file.
+The single-script python code `rubidiumD1.py` or `rubidiumD2.py` will generate absorption data for a vapor cell at a given temperature (in Kelvin) with length Lc (in meters). The detuning range generated can be set and defaults to -4 GHz through +6 GHz. The script generates a plot using pylab (matplotlib) and saves raw data to an ascii file.
 
 An [IPython notebook](http://nbviewer.ipython.org/github/DawesLab/rubidium/blob/master/Rubidium%20Vapor.ipynb) is also included that provides an example workflow.
 
