@@ -1,4 +1,4 @@
-#Rubidium Spectrum Model
+# Rubidium Spectrum Model
 This script provides python code that is useful for calculating absorption spectra for the Rubidium D1 and D2 lines.
 
 Based on the paper by Paul Siddons:
@@ -8,14 +8,14 @@ preprint available: [arXiv:0805.1139](http://arxiv.org/abs/0805.1139).
 This code is also heavily inspired by Mathematica code by the same author. Unfortunately, the original code does not appear to be available any more.
 
 
-##Features
+## Features
 Functions provide calculation of the following:
  - Transmission as a function of temperature (T) and detuning (∆).
  - Index of refraction *n(∆,T)*
  - Group velocity *V<sub>g</sub>(∆,T)*
  - Other intermediate parameters: vapor pressure, absorption, etc.
 
-##Requirements (minimum tested)
+## Requirements (minimum tested)
 
  - python (2.7)
  - Scipy (0.9.0)
@@ -24,7 +24,7 @@ Functions provide calculation of the following:
 
 I recommend using either [Anaconda](https://store.continuum.io/cshop/anaconda/) or [Enthought Canopy](https://store.enthought.com). These packages provide the above requirements in one easy-to-maintain format.
 
-##Installation & Usage
+## Installation & Usage
 
 The single-script python code `rubidiumD1.py` or `rubidiumD2.py` will generate absorption data for a vapor cell at a given temperature (in Kelvin) with length Lc (in meters). The detuning range generated can be set and defaults to -4 GHz through +6 GHz. The script generates a plot using pylab (matplotlib) and saves raw data to an ascii file.
 
