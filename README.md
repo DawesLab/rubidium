@@ -30,7 +30,7 @@ The single-script python code `rubidiumD1.py` or `rubidiumD2.py` will generate a
 
 An [IPython notebook](http://nbviewer.ipython.org/github/DawesLab/rubidium/blob/master/Rubidium%20Vapor.ipynb) is also included that provides an example workflow.
 
-##Extending the code
+## Extending the code
 
 Functions from this script can be imported and used in other python code. My intention is to continue to build on these features and maintain a useful python repository for numerical modeling in rubidium vapor systems.
 
