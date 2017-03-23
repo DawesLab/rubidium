@@ -192,6 +192,80 @@ def groupVelocity(delta, T, Lc):
     return vg
 
 
+def transition_frequency87(Fg, Fe, Fe2=None):
+    """
+    Return the absolute frequency of the hyperfine transition Fg -> Fe for Rb87.
+
+    Numbers from http://steck.us/alkalidata/
+
+    :param Fg: Hyperfine quantum number F of the ground state (1,2)
+    :param Fe: Hyperfine quantum number F of the excited state (1,2)
+    :param Fe2: Optional parameter. If given, the cross-over transition (Fe, Fe2) is computed.
+    :return: Transition frequency in Hz
+    """
+
+    # consistency check
+    if not (isinstance(Fg, int) and isinstance(Fe, int)):
+        raise TypeError
+
+    if not ((1 <= Fg <= 2) and (1 <= Fe <= 2)):
+        raise ValueError
+
+    if Fe2 is not None:
+        if not isinstance(Fe2, int):
+            raise TypeError
+        if not (1 <= Fe2 <= 2):
+            raise ValueError
+
+    freq = 377.107463380e12  # (S->P transition of Rb87 D1 line)
+
+    freq_g = [0, 4.271676631815181e9, -2.563005979089109e9]
+    freq_e = [0, -509.06e6, 305.44e6]
+
+    if Fe2 is None:
+        freq += freq_g[Fg] + freq_e[Fe]
+    else:
+        freq += freq_g[Fg] + (freq_e[Fe] + freq_e[Fe2])/2
+
+    return freq
+
+
+def transition_frequency85(Fg, Fe, Fe2=None):
+    """
+    Return the absolute frequency of the hyperfine transition Fg -> Fe for Rb85.
+
+    Numbers from http://steck.us/alkalidata/
+
+    :param Fg: Hyperfine quantum number F of the ground state (2,3)
+    :param Fe: Hyperfine quantum number F of the excited state (2,3)
+    :param Fe2: Optional parameter. If given, the cross-over transition (Fe, Fe2) is computed.
+    :return: Transition frequency in Hz
+    """
+
+    # consistency check
+    if not (isinstance(Fg, int) and isinstance(Fe, int)):
+        raise TypeError
+
+    if not ((2 <= Fg <= 3) and (2 <= Fe <= 3)):
+        raise ValueError
+
+    if Fe2 is not None:
+        if not isinstance(Fe2, int):
+            raise TypeError
+        if not (2 <= Fe2 <= 3):
+            raise ValueError
+
+    freq = 377.107385690e12  # (S->P transition of Rb85 D1 line)
+
+    freq_g = [0, 0, 1.7708439228e9, -1.2648885163e9]
+    freq_e = [0, 0, -210.923e6, 150.659e6]
+
+    if Fe2 is None:
+        freq += freq_g[Fg] + freq_e[Fe]
+    else:
+        freq += freq_g[Fg] + (freq_e[Fe] + freq_e[Fe2])/2
+
+    return freq
 
 
 if __name__ == '__main__':
