@@ -33,7 +33,6 @@ import os
 from scipy.constants import hbar, e, epsilon_0, c, m_u, k, m_e, alpha
 from scipy import sqrt, pi, exp, zeros, array, real, imag
 from scipy.special import erf
-from pylab import plot, show, linspace, title, xlabel, ylabel, subplot
 from numpy import savetxt, nan_to_num, roll, log10, seterr
 
 seterr(invalid='ignore') # ignoring invalid warnings as the erf is touchy near ∆=0. No interesting physics there so we can safely ignore it.
@@ -269,6 +268,7 @@ def transition_frequency85(Fg, Fe, Fe2=None):
 
 
 if __name__ == '__main__':
+    from pylab import plot, show, linspace, title, xlabel, ylabel, subplot
     T = 273.15 + 30  # Temperature in Kelvin
     Lc = 0.075  # Length of cell in meters
     delta = linspace(-4, 6, 200)  # detuning in GHz
